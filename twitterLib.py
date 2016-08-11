@@ -33,8 +33,15 @@ for f in followrs:
 users = api.lookup_users(user_ids=ids)
 users_name =[]
 for u in users:
-    print u.screen_name
+    # print u.screen_name
     users_name.append(u.screen_name)
+
+favorites= api.favorites(screen_name="kafafafafae812")
+favo=[]
+for f in favorites:
+    print "########################################################"
+    print f.author.screen_name
+    favo.append(f.author.screen_name)
 
 # data={} 
 # data[:nodes] ={}
@@ -46,9 +53,20 @@ for u in users:
 
 
 # JSONファイル書き込み
-with open('users.json',  'w') as f:
-    json.dump(users_name,f,sort_keys=True,indent=4)
+# with open('users.json',  'w') as f:
+#     json.dump(users_name,f,sort_keys=True,indent=4)
+#
+# with open('favo.json',  'w') as f:
+#     json.dump(favo,f,sort_keys=True,indent=4)
+#
+# dict = {"hello": "日本語"}
+text = json.dumps(users_name,  sort_keys=True,  ensure_ascii=False,  indent=2)
+with open("users.json",  "w") as fh:
+        fh.write(text.encode("utf-8"))
 
+text = json.dumps(favo,  sort_keys=True,  ensure_ascii=False,  indent=2)
+with open("favo.json",  "w") as fh:
+        fh.write(text.encode("utf-8"))
 
 # print len(ids)
 
