@@ -17,31 +17,41 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 api = tweepy.API(auth)
 
 # これだけで、Twitter APIをPythonから操作するための準備は完了。
-print('Done!')
+# print('Done!')
 
 # print api.home_timeline()[0].text
-followrs = tweepy.Cursor(api.followers_ids, screen_name="kafafafafae812").pages() 
+# followrs = tweepy.Cursor(api.followers_ids, screen_name="AbemaTV").pages() 
 # followrs = tweepy.Cursor(api.followers, screen_name="kafafafafae812").pages() 
+followrs = api.followers_ids("kafafafafae812")
+# followrs = api.followers_ids("YAMA414")
 ids = []
+i = 0
 print followrs
 for f in followrs:
-    ids.extend(f)
-    print "############################################################################"
-    # for ff in dir(f):
-    #     print ff
+    ids.append(f)
+    i+=1
+    if i > 20:
+        break
 
 users = api.lookup_users(user_ids=ids)
 users_name =[]
+users_name.append("kafafafafae812")
 for u in users:
     # print u.screen_name
     users_name.append(u.screen_name)
 
 favorites= api.favorites(screen_name="kafafafafae812")
+# favorites= api.favorites(screen_name="sugaku_net") ;
 favo=[]
+i =0 
 for f in favorites:
     print "########################################################"
     print f.author.screen_name
     favo.append(f.author.screen_name)
+    i+=1
+    if i > 20:
+        break
+
 
 # data={} 
 # data[:nodes] ={}
